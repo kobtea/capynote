@@ -1,21 +1,55 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import {withStyles} from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
+import Header from './components/Header';
+import Nav from './containers/Nav';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+const drawerWidth = 240;
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+        height: 430,
+        zIndex: 1,
+        overflow: 'hidden',
+        position: 'relative',
+        display: 'flex',
+    },
+    drawerPaper: {
+        position: 'relative',
+        width: drawerWidth,
+    },
+    content: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.default,
+        padding: theme.spacing.unit * 3,
+        minWidth: 0, // So the Typography noWrap works
+    },
+    toolbar: theme.mixins.toolbar,
+});
+
+
+class App extends React.Component {
+    render() {
+        const {classes} = this.props;
+        return (
+            <div className={classes.root}>
+                <Header/>
+                <Nav />
+                <main className={classes.content}>
+                    <div className={classes.toolbar}/>
+                    <Typography noWrap>
+                        capy note
+                    </Typography>
+                </main>
+            </div>
+        );
+    }
 }
 
-export default App;
+App.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
